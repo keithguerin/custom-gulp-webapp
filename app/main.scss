@@ -1,0 +1,33 @@
+// bower:scss
+// endbower
+
+body {
+  background: #33dd99;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: white;
+}
+
+.hero-unit {
+  margin: 50px auto 0 auto;
+  width: 300px;
+  font-size: 18px;
+  font-weight: 200; 
+  line-height: 30px;
+  background-color: rgba(black, .2);
+  border-radius: 20px;
+  padding: 60px;
+  border: 8px solid rgba(black, .1);
+  h1 {
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+}
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
