@@ -7,30 +7,55 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
 gulp.task('styles', function () {
-	return gulp.src('app/**/*.scss')
-		.pipe($.sourcemaps.init())
+	return styles();
+});
+gulp.task('styles:newer', function () {
+	return styles(true);
+});
+function styles (newer) {
+	var result = gulp.src('app/**/*.scss');
+	if (newer) { // Reduce the set to changed files only (where source file is newer than dest file)
+		result = result.pipe($.newer({
+			dest: 'app',
+			ext: '.css'
+		}))
+	}
+	result = result.pipe($.sourcemaps.init())
 		.pipe($.sass({
 			outputStyle: 'nested', // libsass doesn't support expanded yet
 			precision: 10,
 			includePaths: ['.'],
 			onError: console.error.bind(console, 'Sass error:')
-		}))
-		.pipe($.postcss([
+		})).pipe($.postcss([
 			require('autoprefixer-core')({browsers: ['last 1 version']})
 		]))
 		.pipe($.sourcemaps.write())
 		.pipe(gulp.dest('app'))
 		.pipe(reload({stream: true}));
-});
+	return result;
+}
 
 gulp.task('jade', function () {
-	gulp.src('app/**/*.jade')
-		.pipe($.jade({
+	jade();
+});
+gulp.task('jade:newer', function () {
+	jade(true);
+});
+function jade (newer) {
+	var result = gulp.src('app/**/*.jade');
+	if (newer) { // Reduce the set to changed files only (where source file is newer than dest file)
+		result = result.pipe($.newer({
+			dest: 'app',
+			ext: '.html'
+		}))
+	}
+	result = result.pipe($.jade({
 			pretty: true,
 			locals: {}
 		}))
-		.pipe(gulp.dest('app'));
-});
+	.pipe(gulp.dest('app'));
+	return result;
+};
 
 gulp.task('jshint', function () {
 	return gulp.src('app/**/*.js')
@@ -104,8 +129,8 @@ gulp.task('serve', ['styles', 'jade', 'fonts'], function () {
 		'app/fonts/**/*'
 	]).on('change', reload);
 
-	gulp.watch('app/**/*.scss', ['styles']);
-	gulp.watch('app/**/*.jade', ['jade']);
+	gulp.watch('app/**/*.scss', ['styles:newer']);
+	gulp.watch('app/**/*.jade', ['jade:newer']);
 	gulp.watch('app/fonts/**/*', ['fonts']);
 	gulp.watch('bower.json', ['wiredep', 'fonts']);
 });

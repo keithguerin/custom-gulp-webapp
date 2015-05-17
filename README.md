@@ -6,3 +6,4 @@ This is a template generated from [generator-gulp-webapp](https://github.com/yeo
 - While developing locally:
 	- Supports namespaced folders instead of filetype specific folders
 	- Compiles css files to same directory as scss files (instead of .tmp)
+	- gulp-newer is utilized when the watch task is run, for faster compilation
