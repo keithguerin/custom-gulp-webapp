@@ -1,8 +1,10 @@
+@import '../../_vars.scss'; 
+
 .component {
 	color: red;
 }
 h1 {
-	border: 2px dotted yellow;
-	border-radius: 6px;
+	border: 2px dotted $borderColor;
+	border-radius: 8px;
 	padding: .1em;
 } 

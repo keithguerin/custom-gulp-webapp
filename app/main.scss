@@ -1,8 +1,10 @@
 // bower:scss
 // endbower
 
+@import '_vars.scss'; 
+
 body {
-  background: #33dd99;
+  background: $backgroundColor;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: white;
 }
